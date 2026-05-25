@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MMT Dev Launcher</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f0e17;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px}
+h1{font-size:28px;font-weight:900;margin-bottom:6px;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+p{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:40px;text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:600px;margin-bottom:32px}
+.btn{background:#1a1828;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 20px;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:10px}
+.btn:hover{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 8px 24px rgba(124,58,237,.25)}
+.btn svg{width:32px;height:32px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.purple svg{color:#a855f7}
+.btn.cyan svg{color:#06b6d4}
+.btn.green svg{color:#22c55e}
+.btn.amber svg{color:#f59e0b}
+.btn span{font-size:15px;font-weight:700;color:#fff}
+.btn small{font-size:12px;color:rgba(255,255,255,.4);line-height:1.4}
+.divider{width:100%;max-width:600px;border:none;border-top:1px solid rgba(255,255,255,.08);margin:8px 0 24px}
+.cmd-box{background:#1a1828;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px 24px;width:100%;max-width:600px}
+.cmd-box h3{font-size:14px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+.cmd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.cmd:last-child{margin-bottom:0}
+.cmd code{background:#0f0e17;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 14px;font-size:13px;color:#a855f7;flex:1;font-family:'Courier New',monospace}
+.copy-btn{background:#7c3aed;border:none;color:#fff;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
+.copy-btn:hover{background:#9333ea}
+.copy-btn.copied{background:#22c55e}
+.status{text-align:center;margin-top:24px;font-size:13px;color:rgba(255,255,255,.3)}
+.status a{color:#a855f7;text-decoration:none}
+.status a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<h1>🎵🎬 MMT Dev Launcher</h1>
+<p>Music & Movie Trivia — Developer Control Panel</p>
+
+<div class="grid">
+
+  <!-- Preview Game -->
+  <a class="btn purple" id="btn-preview" href="#" onclick="previewGame()">
+    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    <span>Preview Game</span>
+    <small>Open index.html in a new tab</small>
+  </a>
+
+  <!-- Open Project Folder -->
+  <a class="btn cyan" href="#" onclick="alert('In Git Bash type:\ncd ~/Documents/MusicMovieTrivia.com')">
+    <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    <span>Project Folder</span>
+    <small>C:\Users\Danny\Documents\MusicMovieTrivia.com</small>
+  </a>
+
+  <!-- Live Site -->
+  <a class="btn green" href="https://hdmultimedia.github.io/MusicMovieTrivia.com" target="_blank">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span>Live Site</span>
+    <small>Open MusicMovieTRIVIA.com live</small>
+  </a>
+
+  <!-- GitHub Repo -->
+  <a class="btn amber" href="https://github.com/HDMultiMedia/MusicMovieTrivia.com" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+    <span>GitHub Repo</span>
+    <small>View repository on GitHub</small>
+  </a>
+
+</div>
+
+<hr class="divider">
+
+<!-- Quick Publish Commands -->
+<div class="cmd-box">
+  <h3>⚡ Quick Publish Commands — save index.html directly to project folder, then run these</h3>
+
+  <div class="cmd">
+    <code>cd ~/Documents/MusicMovieTrivia.com</code>
+    <button class="copy-btn" onclick="copyCmd(this,'cd ~/Documents/MusicMovieTrivia.com')">Copy</button>
+  </div>
+
+  <div class="cmd">
+    <code>git add index.html && git commit -m "Update game" && git push origin main --force</code>
+    <button class="copy-btn" onclick="copyCmd(this,'git add index.html && git commit -m \"Update game\" && git push origin main --force')">Copy</button>
+  </div>
+
+  <div class="cmd">
+    <code>bash publish.sh</code>
+    <button class="copy-btn" onclick="copyCmd(this,'bash publish.sh')">Copy</button>
+  </div>
+</div>
+
+<div class="status">
+  Launcher saved at: <strong>C:\Users\Danny\Documents\MusicMovieTrivia.com\launcher.html</strong><br><br>
+  Live site: <a href="https://hdmultimedia.github.io/MusicMovieTrivia.com" target="_blank">hdmultimedia.github.io/MusicMovieTrivia.com</a>
+</div>
+
+<script>
+function previewGame() {
+  // Try to open index.html from same folder
+  window.open('index.html', '_blank');
+  return false;
+}
+
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 1500);
+  }).catch(function() {
+    // Fallback for older browsers
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>
