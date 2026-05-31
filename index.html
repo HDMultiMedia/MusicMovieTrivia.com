@@ -8,10 +8,8 @@
        SEO — Primary Meta Tags
   ═══════════════════════════════════════════════ -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7763800157375335" crossorigin="anonymous"></script>
-  
+  <script>
 // ── GOOGLE ADSENSE — DEFERRED LAZY LOADER ─────────────────────────────────
-// Fixes "No slot size for availableWidth=0" by only pushing ads
-// when their containers are actually visible in the DOM.
 (function() {
   function pushAd(ins) {
     try {
@@ -20,42 +18,17 @@
       }
     } catch(e) { console.warn('AdSense push error:', e); }
   }
-
-  function pushVisibleAds() {
-    var adEls = document.querySelectorAll('ins.adsbygoogle');
-    adEls.forEach(function(ins) {
-      // Check if element has non-zero width (is visible)
-      var rect = ins.getBoundingClientRect();
-      var style = window.getComputedStyle(ins.parentElement || ins);
-      var parentVisible = style.display !== 'none' && style.visibility !== 'hidden';
-      if (parentVisible && ins.offsetWidth > 0 && !ins.dataset.adsbygoogleStatus) {
-        pushAd(ins);
-      }
-    });
-  }
-
-  // Push sidebar ads after short delay to allow CSS to apply
   function pushSidebarAds() {
-    var sidebars = document.querySelectorAll('.ad-sidebar ins.adsbygoogle');
-    sidebars.forEach(function(ins) {
-      if (window.innerWidth >= 1220 && !ins.dataset.adsbygoogleStatus) {
-        pushAd(ins);
-      }
+    document.querySelectorAll('.ad-sidebar ins.adsbygoogle').forEach(function(ins) {
+      if (window.innerWidth >= 1220 && !ins.dataset.adsbygoogleStatus) pushAd(ins);
     });
   }
-
-  // Push home page horizontal ad on load (it's always visible)
   function pushHomeAd() {
-    var homeAds = document.querySelectorAll('.ad-horizontal-wrap ins.adsbygoogle');
-    homeAds.forEach(function(ins) {
-      var screen = ins.closest('.screen');
-      if (!screen || screen.classList.contains('active')) {
-        pushAd(ins);
-      }
+    document.querySelectorAll('.ad-horizontal-wrap ins.adsbygoogle').forEach(function(ins) {
+      var scr = ins.closest('.screen');
+      if (!scr || scr.classList.contains('active')) pushAd(ins);
     });
   }
-
-  // Initial push on DOMContentLoaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(pushHomeAd, 500);
@@ -65,27 +38,22 @@
     setTimeout(pushHomeAd, 500);
     setTimeout(pushSidebarAds, 800);
   }
-
-  // Expose function so showScreen() can push ads when screens become visible
   window.pushAdsForScreen = function(screenId) {
     setTimeout(function() {
-      var screen = document.getElementById(screenId);
-      if (!screen) return;
-      var ads = screen.querySelectorAll('ins.adsbygoogle');
-      ads.forEach(function(ins) {
+      var scr = document.getElementById(screenId);
+      if (!scr) return;
+      scr.querySelectorAll('ins.adsbygoogle').forEach(function(ins) {
         if (!ins.dataset.adsbygoogleStatus) pushAd(ins);
       });
     }, 300);
   };
-
-  // Re-check on resize (sidebar breakpoint changes)
   var resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(pushSidebarAds, 400);
   });
 })();
-
+  </script>
   <meta name="google-site-verification" content="KYGDDfBdfGzeZwUtSzNSGaOT7hqFVgKsc2_khBYAZYM" />
   <meta name="description" content="Play free trivia games online at Music &amp; Movie Trivia — The Game! Thousands of music trivia questions and answers, movie trivia questions and answers, Disney movie trivia, and more. The best free online trivia games for families. Play solo or host a MultiPlayer game night. 100% free, no sign-up required.">
   <meta name="keywords" content="free trivia games, trivia questions, music trivia questions, movie trivia questions, music trivia questions and answers, movie trivia questions and answers, disney movie trivia, play games online free, play free games online, play free online games, games for free, online games for free, games for free online, online trivia games, best family games, trivia games online, music quiz, movie quiz, free quiz games, online quiz, pop culture trivia, entertainment trivia, family trivia night, game night games, trivia night, pub quiz, music trivia game, film trivia, cinema trivia, song trivia">
