@@ -8,6 +8,84 @@
        SEO — Primary Meta Tags
   ═══════════════════════════════════════════════ -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7763800157375335" crossorigin="anonymous"></script>
+  
+// ── GOOGLE ADSENSE — DEFERRED LAZY LOADER ─────────────────────────────────
+// Fixes "No slot size for availableWidth=0" by only pushing ads
+// when their containers are actually visible in the DOM.
+(function() {
+  function pushAd(ins) {
+    try {
+      if (ins && !ins.dataset.adsbygoogleStatus) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch(e) { console.warn('AdSense push error:', e); }
+  }
+
+  function pushVisibleAds() {
+    var adEls = document.querySelectorAll('ins.adsbygoogle');
+    adEls.forEach(function(ins) {
+      // Check if element has non-zero width (is visible)
+      var rect = ins.getBoundingClientRect();
+      var style = window.getComputedStyle(ins.parentElement || ins);
+      var parentVisible = style.display !== 'none' && style.visibility !== 'hidden';
+      if (parentVisible && ins.offsetWidth > 0 && !ins.dataset.adsbygoogleStatus) {
+        pushAd(ins);
+      }
+    });
+  }
+
+  // Push sidebar ads after short delay to allow CSS to apply
+  function pushSidebarAds() {
+    var sidebars = document.querySelectorAll('.ad-sidebar ins.adsbygoogle');
+    sidebars.forEach(function(ins) {
+      if (window.innerWidth >= 1220 && !ins.dataset.adsbygoogleStatus) {
+        pushAd(ins);
+      }
+    });
+  }
+
+  // Push home page horizontal ad on load (it's always visible)
+  function pushHomeAd() {
+    var homeAds = document.querySelectorAll('.ad-horizontal-wrap ins.adsbygoogle');
+    homeAds.forEach(function(ins) {
+      var screen = ins.closest('.screen');
+      if (!screen || screen.classList.contains('active')) {
+        pushAd(ins);
+      }
+    });
+  }
+
+  // Initial push on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(pushHomeAd, 500);
+      setTimeout(pushSidebarAds, 800);
+    });
+  } else {
+    setTimeout(pushHomeAd, 500);
+    setTimeout(pushSidebarAds, 800);
+  }
+
+  // Expose function so showScreen() can push ads when screens become visible
+  window.pushAdsForScreen = function(screenId) {
+    setTimeout(function() {
+      var screen = document.getElementById(screenId);
+      if (!screen) return;
+      var ads = screen.querySelectorAll('ins.adsbygoogle');
+      ads.forEach(function(ins) {
+        if (!ins.dataset.adsbygoogleStatus) pushAd(ins);
+      });
+    }, 300);
+  };
+
+  // Re-check on resize (sidebar breakpoint changes)
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(pushSidebarAds, 400);
+  });
+})();
+
   <meta name="google-site-verification" content="KYGDDfBdfGzeZwUtSzNSGaOT7hqFVgKsc2_khBYAZYM" />
   <meta name="description" content="Play free trivia games online at Music &amp; Movie Trivia — The Game! Thousands of music trivia questions and answers, movie trivia questions and answers, Disney movie trivia, and more. The best free online trivia games for families. Play solo or host a MultiPlayer game night. 100% free, no sign-up required.">
   <meta name="keywords" content="free trivia games, trivia questions, music trivia questions, movie trivia questions, music trivia questions and answers, movie trivia questions and answers, disney movie trivia, play games online free, play free games online, play free online games, games for free, online games for free, games for free online, online trivia games, best family games, trivia games online, music quiz, movie quiz, free quiz games, online quiz, pop culture trivia, entertainment trivia, family trivia night, game night games, trivia night, pub quiz, music trivia game, film trivia, cinema trivia, song trivia">
@@ -419,7 +497,7 @@ footer a:hover{color:var(--muted)}
 
 /* Fixed sidebar ads — shown only on wide screens */
 .ad-sidebar{position:fixed;top:50%;transform:translateY(-50%);
-  z-index:90;display:none}
+  z-index:90;display:none;width:160px;min-width:160px}
 .ad-sidebar-left{left:6px}
 .ad-sidebar-right{right:6px}
 @media(min-width:1220px){
@@ -438,7 +516,7 @@ footer a:hover{color:var(--muted)}
 
 /* Horizontal mid-page ad */
 .ad-horizontal{height:90px;max-width:728px;margin:0 auto}
-.ad-horizontal-wrap{padding:20px 24px;display:flex;justify-content:center}
+.ad-horizontal-wrap{padding:20px 24px;display:flex;justify-content:center;width:100%;min-height:100px}
 
 /* ── LEGAL MODALS ─────────────────────────────────────────── */
 .legal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
@@ -525,23 +603,21 @@ footer a:hover{color:var(--muted)}
 <!-- SIDEBAR ADS (visible on wide screens ≥ 1220px) -->
 <div class="ad-sidebar ad-sidebar-left" aria-label="Advertisement">
   <!-- Skycraper Left -->
-  <ins class="adsbygoogle"
-       style="display:block"
+  <ins class="adsbygoogle" style="display:block;width:160px;min-height:600px" data-ad-client="ca-pub-7763800157375335" data-ad-slot="<ins class="adsbygoogle"
+       style="display:block;width:160px;min-height:600px"
        data-ad-client="ca-pub-7763800157375335"
        data-ad-slot="2857704993"
        data-ad-format="auto"
        data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 <div class="ad-sidebar ad-sidebar-right" aria-label="Advertisement">
   <!-- Skyscraper Right -->
-  <ins class="adsbygoogle"
-       style="display:block"
+  <ins class="adsbygoogle" style="display:block;width:160px;min-height:600px" data-ad-client="ca-pub-7763800157375335" data-ad-slot="<ins class="adsbygoogle"
+       style="display:block;width:160px;min-height:600px"
        data-ad-client="ca-pub-7763800157375335"
        data-ad-slot="8954312279"
        data-ad-format="auto"
        data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <!-- HOME -->
@@ -564,12 +640,11 @@ footer a:hover{color:var(--muted)}
   <div class="ad-horizontal-wrap">
     <!-- Horizontal Top -->
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block;width:100%;min-height:90px"
          data-ad-client="ca-pub-7763800157375335"
          data-ad-slot="3486363177"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
   <div class="home-content">
     <div style="text-align:center">
@@ -733,7 +808,6 @@ footer a:hover{color:var(--muted)}
              data-ad-slot="3263001894"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
       <div class="res-actions">
         <button class="btn-primary" onclick="retakeQuiz()"><svg class="icon" aria-hidden="true"><use href="#i-retake"></use></svg> Retake Quiz</button>
@@ -768,12 +842,11 @@ footer a:hover{color:var(--muted)}
     <div class="ad-horizontal-wrap" style="margin-top:24px">
       <!-- Horizontal Bottom -->
       <ins class="adsbygoogle"
-           style="display:block"
+           style="display:block;width:100%;min-height:90px"
            data-ad-client="ca-pub-7763800157375335"
            data-ad-slot="4857182374"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     <div class="lb-empty" id="lb-empty" style="display:none">
       <svg class="icon" aria-hidden="true" style="font-size:36px;display:block;margin-bottom:9px;opacity:.22"><use href="#i-trophy"></use></svg>
