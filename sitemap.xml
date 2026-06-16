@@ -12,5 +12,26 @@
   <lastmod>2026-05-26T16:38:43+00:00</lastmod>
 </url>
 
+<url>
+  <loc>https://musicmovietrivia.com/about.html</loc>
+  <lastmod>2026-06-16T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://musicmovietrivia.com/contact.html</loc>
+  <lastmod>2026-06-16T00:00:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://musicmovietrivia.com/privacy.html</loc>
+  <lastmod>2026-06-16T00:00:00+00:00</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.5</priority>
+</url>
+
 
 </urlset>
